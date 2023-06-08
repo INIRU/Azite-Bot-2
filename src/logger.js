@@ -3,26 +3,34 @@ const winstonDaily = require('winston-daily-rotate-file');
 const path = require('node:path');
 
 const logPath = path.join(__dirname, '../logs');
+const logFormat = format.printf(({ timestamp, level, message }) => {
+  return `${[timestamp]} [${level}] ${message}`;
+});
 
 /** Logger */
 const logger = createLogger({
   transports: [
     new winstonDaily({
+      level: 'silly',
       datePattern: 'YYYY-MM-DD',
       dirname: logPath,
       filename: '%DATE%.log',
       maxFiles: 30,
       zippedArchive: true,
+      format: format.combine(
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        logFormat
+      ),
     }),
-    new transports.Console(),
+    new transports.Console({
+      level: 'silly',
+      format: format.combine(
+        format.colorize(),
+        format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+        logFormat
+      ),
+    }),
   ],
-  format: format.combine(
-    format.colorize(),
-    format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
-    format.printf(({ timestamp, level, message }) => {
-      return `${[timestamp]} ${level}: ${message}`;
-    })
-  ),
 });
 
 module.exports = logger;
