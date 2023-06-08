@@ -11,7 +11,7 @@ const logFormat = format.printf(({ timestamp, level, message }) => {
 const logger = createLogger({
   transports: [
     new winstonDaily({
-      level: 'silly',
+      level: 'debug',
       datePattern: 'YYYY-MM-DD',
       dirname: logPath,
       filename: '%DATE%.log',
@@ -23,7 +23,7 @@ const logger = createLogger({
       ),
     }),
     new transports.Console({
-      level: 'silly',
+      level: 'debug',
       format: format.combine(
         format.colorize(),
         format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
