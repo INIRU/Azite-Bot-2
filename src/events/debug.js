@@ -5,6 +5,6 @@ module.exports = {
   name: Events.Debug,
   once: false,
   execute(message) {
-    logger.debug(message);
+    logger.info(message);
   },
 };
