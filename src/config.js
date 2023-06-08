@@ -7,4 +7,5 @@ module.exports = {
   token: getEnvironmentVariable('TOKEN'),
   clientId: getEnvironmentVariable('CLIENT_ID'),
   guildId: getEnvironmentVariable('GUILD_ID'),
+  errlogchId: getEnvironmentVariable('ERROR_CHANNEL_ID'),
 };

@@ -5,6 +5,6 @@ module.exports = {
   name: Events.Error,
   once: false,
   execute(error) {
-    logger.error(error);
+    logger.error(error.stack);
   },
 };
