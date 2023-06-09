@@ -22,13 +22,13 @@ module.exports = {
       );
       const command = interaction.client.commands.get(interaction.commandName);
 
-      // if (!command) {
-      //   await interaction.reply(
-      //     `**\`${interaction.commandName}\`**는\(은) 등록되지 않은 명령어 입니다.`
-      //   );
-      //   logger.warn(`${interaction.commandName} is not found.`);
-      //   return;
-      // }
+      if (!command) {
+        await interaction.reply(
+          `**\`${interaction.commandName}\`**는\(은) 등록되지 않은 명령어 입니다.`
+        );
+        logger.warn(`${interaction.commandName} is not found.`);
+        return;
+      }
 
       try {
         await command.execute(interaction);
