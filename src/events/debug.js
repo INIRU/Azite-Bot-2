@@ -4,7 +4,7 @@ const logger = require('../logger');
 module.exports = {
   name: Events.Debug,
   once: false,
-  execute(message) {
+  execute(client, message) {
     logger.debug(message);
   },
 };

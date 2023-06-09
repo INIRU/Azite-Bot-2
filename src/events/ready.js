@@ -4,7 +4,7 @@ const logger = require('../logger');
 module.exports = {
   name: Events.ClientReady,
   once: true,
-  execute(client) {
+  execute(client, arg) {
     if (!client.isReady()) return;
 
     logger.info(`${client.user.tag} is now online!`);

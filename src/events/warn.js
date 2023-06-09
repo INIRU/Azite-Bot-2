@@ -4,7 +4,7 @@ const logger = require('../logger');
 module.exports = {
   name: Events.Warn,
   once: false,
-  execute(message) {
+  execute(client, message) {
     logger.warn(message);
   },
 };

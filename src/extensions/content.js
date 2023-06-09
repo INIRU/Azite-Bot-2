@@ -35,7 +35,7 @@ function contentBuilder(interaction, name, query) {
     returnValue.embeds = [embed];
   }
 
-  for (key in Object.keys(returnValue)) {
+  for (let key in Object.keys(returnValue)) {
     if (returnValue[key] == null) {
       delete returnValue[key];
     }

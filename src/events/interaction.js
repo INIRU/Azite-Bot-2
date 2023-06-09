@@ -1,5 +1,4 @@
 const { Events, ChannelType } = require('discord.js');
-const { v4: uuidv4 } = require('uuid');
 const logger = require('../logger');
 const { contentBuilder } = require('../extensions');
 const config = require('../config');
@@ -7,7 +6,7 @@ const config = require('../config');
 module.exports = {
   name: Events.InteractionCreate,
   once: false,
-  async execute(interaction) {
+  async execute(client, interaction) {
     if (interaction.user.bot) return;
     if (interaction.channel.type == ChannelType.DM) {
       logger.info(`${interaction.user} is DM Interaction`);
