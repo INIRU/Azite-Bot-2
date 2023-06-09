@@ -1,12 +1,13 @@
 const { Events, ChannelType } = require('discord.js');
-const logger = require('../logger');
 const { contentBuilder } = require('../extensions');
+const { v4: uuidv4 } = require('uuid');
+const logger = require('../logger');
 const config = require('../config');
 
 module.exports = {
   name: Events.InteractionCreate,
   once: false,
-  async execute(client, interaction) {
+  async execute(interaction) {
     if (interaction.user.bot) return;
     if (interaction.channel.type == ChannelType.DM) {
       logger.info(`${interaction.user} is DM Interaction`);
@@ -24,7 +25,7 @@ module.exports = {
 
       if (!command) {
         await interaction.reply(
-          `**\`${interaction.commandName}\`**는\(은) 등록되지 않은 명령어 입니다.`
+          `**\`${interaction.commandName}\`**는\\(은) 등록되지 않은 명령어 입니다.`
         );
         logger.warn(`${interaction.commandName} is not found.`);
         return;

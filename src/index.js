@@ -39,9 +39,9 @@ for (const file of eventsFiles) {
   logger.info(`Event: ${event.name} is Load`);
 
   if (event.once) {
-    client.once(event.name, (...args) => event.execute(client, ...args));
+    client.once(event.name, (...args) => event.execute(...args));
   } else {
-    client.on(event.name, (...args) => event.execute(client, ...args));
+    client.on(event.name, (...args) => event.execute(...args));
   }
 }
 
