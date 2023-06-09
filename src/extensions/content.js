@@ -1,8 +1,8 @@
-const { EmbedBuilder } = require('discord.js');
+const { EmbedBuilder, codeBlock } = require('discord.js');
 
 function contentBuilder(interaction, name, query) {
   let returnValue = { content: null, embeds: null, components: null };
-  if (name === 'slashErrorUser') {
+  if (name === 'InteractionErrorUser') {
     const embed = new EmbedBuilder()
       .setTitle('⛔️ 알 수 없는 오류가 발생했습니다.')
       .setDescription(
@@ -14,7 +14,7 @@ function contentBuilder(interaction, name, query) {
         iconURL: interaction.user.avatarURL(),
       });
     returnValue.embeds = [embed];
-  } else if (name === 'slashErrorDev') {
+  } else if (name === 'InteractionErrorDev') {
     const embed = new EmbedBuilder()
       .setTitle('🔍 알 수 없는 오류를 발견하였습니다.')
       .addFields({
@@ -24,7 +24,7 @@ function contentBuilder(interaction, name, query) {
       })
       .addFields({
         name: '**ERROR**',
-        value: `\`\`\`js\n${query.error}\`\`\``,
+        value: codeBlock('js', query.error),
       })
       .setTimestamp()
       .setFooter({
