@@ -14,7 +14,7 @@ module.exports = {
       await interaction.reply('**DM**은 지원하지 않습니다.');
     }
 
-    /**Slash Commands Input */
+    /** Slash Commands Input */
     if (interaction.isChatInputCommand()) {
       logger.info(
         `Command: ${interaction.user.id} - ${
@@ -45,7 +45,9 @@ module.exports = {
         logger.error(`${uuid}\n${e.stack}`);
         if (interaction.replied || interaction.deferred) {
           await interaction.reply(reponse);
-        } else await interaction.reply(reponse);
+        } else {
+          await interaction.reply(reponse);
+        }
         const reponseDev = contentBuilder(interaction, 'slashErrorDev', {
           id: uuid,
           error: e,

@@ -1,7 +1,7 @@
 const { EmbedBuilder } = require('discord.js');
 
 function contentBuilder(interaction, name, query) {
-  let returnValue = { content: null, embeds: null, components: null };
+  const returnValue = { content: null, embeds: null, components: null };
   if (name === 'slashErrorUser') {
     const embed = new EmbedBuilder()
       .setTitle('⛔️ 알 수 없는 오류가 발생했습니다.')
@@ -35,7 +35,7 @@ function contentBuilder(interaction, name, query) {
     returnValue.embeds = [embed];
   }
 
-  for (let key in Object.keys(returnValue)) {
+  for (const key in Object.keys(returnValue)) {
     if (returnValue[key] == null) {
       delete returnValue[key];
     }

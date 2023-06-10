@@ -4,7 +4,9 @@ const config = require('./config.js');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const client = new Client({ intents: GatewayIntentBits.Guilds });
+const client = new Client({
+  intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
+});
 
 client.commands = new Collection();
 
@@ -22,7 +24,9 @@ for (const file of commandsFiles) {
   if ('data' in command && 'execute' in command) {
     logger.info(`Command: ${command.data.name} is Load`);
     client.commands.set(command.data.name, command);
-  } else logger.warn(`${filePath} Not Command File Formats.`);
+  } else {
+    logger.warn(`${filePath} Not Command File Formats.`);
+  }
 }
 
 logger.info('Events Handler is Ready');
