@@ -3,6 +3,7 @@ const {
   PermissionFlagsBits,
   EmbedBuilder,
   userMention,
+  PermissionFlagsBits,
 } = require('discord.js');
 const { knex } = require('../extensions');
 
@@ -39,15 +40,36 @@ module.exports = {
     const limit = JSON.parse(guild.config).warnlimit;
     const warndata = JSON.parse(guild.warn);
 
+    const memberPosition = member.roles.highest.position;
+    const authorPosition = interaction.member.roles.highest.position;
+
+    if (authorPosition < memberPosition) {
+      return await interaction.reply({
+        content: `당신의 **권한**보다 ${member}님의 **권한**이 더 **높아** 경고를 부여할 수 없습니다.`,
+        ephemeral: true,
+      });
+    }
     if (reason.length > 100) {
-      return interaction.reply({
+      return await interaction.reply({
         content: '사유가 너무 깁니다.',
         ephemeral: true,
       });
     }
     if (!member) {
-      return interaction.reply({
-        content: '유저를 찾을 수 없습니다.',
+      return await interaction.reply({
+        content: '**유저**를 찾을 수 없습니다.',
+        ephemeral: true,
+      });
+    }
+    if (member.user.bot) {
+      return await interaction.reply({
+        content: '봇에게는 경고를 부여할 수 없습니다.',
+        ephemeral: true,
+      });
+    }
+    if (member.permissions.has(PermissionFlagsBits.Administrator)) {
+      return await interaction.reply({
+        content: `${member}님은 **\`관리자*\`**권한을 가지고 있어 경고를 부여할 수 없습니다.`,
         ephemeral: true,
       });
     }
@@ -92,7 +114,6 @@ module.exports = {
         warndata[member.id].reason.push(reason);
       }
 
-      /** Embed Settings */
       embed.setColor('#2375e9');
       infoText += `사유: ${reason}\n경고 횟수: ${
         warndata[member.id].count
