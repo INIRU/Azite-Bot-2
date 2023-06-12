@@ -2,8 +2,6 @@ const {
   SlashCommandBuilder,
   PermissionFlagsBits,
   EmbedBuilder,
-  userMention,
-  PermissionFlagsBits,
 } = require('discord.js');
 const { knex } = require('../extensions');
 
