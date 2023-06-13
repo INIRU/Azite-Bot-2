@@ -1,8 +1,5 @@
 const { Events, ChannelType } = require('discord.js');
-const { contentBuilder } = require('../extensions');
-const { v4: uuidv4 } = require('uuid');
 const logger = require('../logger');
-const config = require('../config');
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -14,8 +11,9 @@ module.exports = {
       await interaction.reply('**DM**은 지원하지 않습니다.');
     }
 
-    /**Slash Commands Input */
+    /** Slash Commands Input */
     if (interaction.isChatInputCommand()) {
+      Error.prototype.interaction = interaction;
       logger.info(
         `Command: ${interaction.user.id} - ${
           interaction.commandName
@@ -31,27 +29,7 @@ module.exports = {
         return;
       }
 
-      try {
-        await command.execute(interaction);
-      } catch (e) {
-        const errorLogChannel = interaction.client.channels.cache.get(
-          config.errlogchId
-        );
-        const uuid = uuidv4();
-        const reponse = contentBuilder(interaction, 'slashErrorUser', {
-          id: uuid,
-          error: e,
-        });
-        logger.error(`${uuid}\n${e.stack}`);
-        if (interaction.replied || interaction.deferred) {
-          await interaction.reply(reponse);
-        } else await interaction.reply(reponse);
-        const reponseDev = contentBuilder(interaction, 'slashErrorDev', {
-          id: uuid,
-          error: e,
-        });
-        return await errorLogChannel.send(reponseDev);
-      }
+      await command.execute(interaction);
     }
   },
 };
