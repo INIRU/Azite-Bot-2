@@ -1,4 +1,5 @@
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, Events } = require('discord.js');
+const { local } = require('./language');
 const logger = require('./logger.js');
 const config = require('./config.js');
 const fs = require('node:fs');
@@ -7,6 +8,24 @@ const path = require('node:path');
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers],
 });
+
+/** Prototype */
+Client.prototype.local = local;
+Client.prototype.config = config;
+Error.prototype.client = client;
+Error.prototype.interaction = null;
+String.prototype.bind = function (parameter) {
+  let text = this;
+  const key = text.match(/\{(.*?)\}/g);
+  if (!key) return this;
+
+  key.forEach((key) => {
+    const name = key.replace(/\{/, '').replace(/\}/, '');
+    const code = String(parameter[name]);
+    text = text.replace(key, code ?? '');
+  });
+  return text;
+};
 
 client.commands = new Collection();
 
@@ -49,4 +68,4 @@ for (const file of eventsFiles) {
   }
 }
 
-(async () => await client.login(config.token))();
+(async () => await client.login(client.config.token))();
