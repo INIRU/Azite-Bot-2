@@ -7,7 +7,7 @@
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License">
   </a>
   <a href="https://discord.gg/NkdFwWE8ZP">
-    <img src="https://img.shields.io/discord/670930847293112321?color=5865F2&label=아지트<VALORANT>&logo=discord&logoColor=white" alt="Discord server" />
+    <img src="https://img.shields.io/discord/670930847293112321?color=5865F2&logo=discord&logoColor=white" alt="Discord server" />
   </a>
   <a herf="https://www.npmjs.com/package/discord.js" alt="Discor.js Version">
     <img  src="https://img.shields.io/npm/v/discord.js?label=discord.js&logo=Discord">
