@@ -1,8 +1,4 @@
-const {
-  SlashCommandBuilder,
-  PermissionFlagsBits,
-  EmbedBuilder,
-} = require('discord.js');
+const { SlashCommandBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -15,5 +11,12 @@ module.exports = {
     const name = interaction.options.getString('name');
 
     const reponse = createEmbed(interaction, type);
+
+    if (!reponse) {
+      return await interaction.reply({
+        content: '등록이 안된 `embed`입니다.',
+        ephemeral: true,
+      });
+    }
   },
 };
