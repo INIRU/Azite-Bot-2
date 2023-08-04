@@ -7,16 +7,16 @@ const { knex } = require('../extensions');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('warn')
+    .setName('경고')
     .setDescription('경고를 관리하는 명령어입니다.')
     .addStringOption((option) =>
       option
-        .setName('query')
+        .setName('option')
         .setDescription('처리할 명령을 선택하여 주세요.')
         .setRequired(true)
         .addChoices(
-          { name: 'add', value: 'add' },
-          { name: 'del', value: 'del' }
+          { name: '부여', value: 'add' },
+          { name: '차감', value: 'del' }
         )
     )
     .addUserOption((option) =>
@@ -30,7 +30,7 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
-    const query = interaction.options.getString('query');
+    const query = interaction.options.getString('option');
     const member = interaction.options.getMember('member');
     const reason = interaction.options.getString('reason') ?? '없음';
 
