@@ -6,6 +6,7 @@ module.exports = {
   name: Events.Error,
   once: false,
   async execute(error) {
+    logger.error(error);
     if (error.interaction != null) {
       const errorLogChannel = error.interaction.client.channels.cache.get(
         error.client.config.errlogchId
@@ -56,6 +57,6 @@ module.exports = {
       await error.interaction.reply({ embeds: [userEmbed], ephemeral: true });
       await errorLogChannel.send({ embeds: [devEmbed] });
       return (Error.prototype.interaction = null);
-    } else logger.error(error);
+    }
   },
 };
