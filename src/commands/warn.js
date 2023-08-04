@@ -11,7 +11,7 @@ module.exports = {
     .setDescription('경고를 관리하는 명령어입니다.')
     .addStringOption((option) =>
       option
-        .setName('option')
+        .setName('query')
         .setDescription('처리할 명령을 선택하여 주세요.')
         .setRequired(true)
         .addChoices(
@@ -30,7 +30,7 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
   async execute(interaction) {
-    const query = interaction.options.getString('option');
+    const query = interaction.options.getString('query');
     const member = interaction.options.getMember('member');
     const reason = interaction.options.getString('reason') ?? '없음';
 
