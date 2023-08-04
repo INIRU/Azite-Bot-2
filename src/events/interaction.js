@@ -11,7 +11,11 @@ module.exports = {
       await interaction.reply('**DM**은 지원하지 않습니다.');
     }
 
-    /** Slash Commands Input */
+    /** Button Inputs */
+
+    
+
+    /** Slash Commands Inputs */
     if (interaction.isChatInputCommand()) {
       Error.prototype.interaction = interaction;
       logger.info(

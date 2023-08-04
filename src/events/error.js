@@ -53,7 +53,7 @@ module.exports = {
           text: error.interaction.user.tag,
           iconURL: error.interaction.user.avatarURL(),
         });
-      await error.interaction.reply({ embeds: [userEmbed] });
+      await error.interaction.reply({ embeds: [userEmbed], ephemeral: true });
       await errorLogChannel.send({ embeds: [devEmbed] });
       return (Error.prototype.interaction = null);
     } else logger.error(error);
