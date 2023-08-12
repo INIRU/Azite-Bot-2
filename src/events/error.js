@@ -6,7 +6,7 @@ module.exports = {
   name: Events.Error,
   once: false,
   async execute(error) {
-    logger.error(error);
+    logger.error(error.stack);
     if (error.interaction != null) {
       const errorLogChannel = error.interaction.client.channels.cache.get(
         error.client.config.errlogchId
@@ -31,21 +31,21 @@ module.exports = {
 
       /** Developer Error Log Message */
       const devEmbed = new EmbedBuilder()
-        .setTitle(error.client.local.bot.error.developer.title)
+        .setTitle(error.client.local.error.developer.title)
         .addFields({
-          name: error.client.local.bot.error.developer.infomation.name,
-          value: error.client.local.bot.error.developer.infomation.value.bind({
+          name: error.client.local.error.developer.infomation.name,
+          value: error.client.local.error.developer.infomation.value.bind({
             id: uuid,
             user: error.interaction.user.id,
             channel: error.interaction.channel.id,
             guild: error.interaction.guild.id,
             perms: error.interaction.guild.members.me.permissions.bitfield,
           }),
-          inline: error.client.local.bot.error.developer.infomation.inline,
+          inline: error.client.local.error.developer.infomation.inline,
         })
         .addFields({
-          name: error.client.local.bot.error.developer.error.name,
-          value: error.client.local.bot.error.developer.error.value.bind({
+          name: error.client.local.error.developer.error.name,
+          value: error.client.local.error.developer.error.value.bind({
             error: error,
           }),
         })
