@@ -39,8 +39,8 @@ module.exports = {
       const tierRegex = /tier-\w+/;
       if (tierRegex.test(interaction.customId)) {
         if (
-          interaction.customId.replace('tier-', '') == 'radiant' ||
-          'imotal'
+          interaction.customId.replace('tier-', '') == 'radiant' &&
+          interaction.customId.replace('tier-', '') == 'imotal'
         ) {
           return await TicketBuild(interaction, 'roles');
         }
