@@ -25,13 +25,16 @@ module.exports = {
     const reponse = createEmbed(interaction, type);
 
     if (!reponse) {
-      return await interaction.reply({
-        content: '등록이 안된 `embed`입니다.',
+      await interaction.reply({
+        content: interaction.client.local.commands.embeder.notf,
         ephemeral: true,
       });
+      return;
     }
     await interaction.reply({
-      content: `${channel}로 전송되었습니다.`,
+      content: interaction.client.local.commands.embeder.send.bind({
+        chn: channel,
+      }),
       ephemeral: true,
     });
     await channel.send(reponse);
