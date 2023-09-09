@@ -48,8 +48,11 @@ module.exports = {
         let selTier = interaction.guild.roles.cache.find(
           (r) => r.id === interaction.customId.replace('tier-', '')
         );
-        let memberTier = '';
+        let memberTier = interaction.guild.roles.cache.find(
+          (r) => r.id === '836228186488176690'
+        );
         let tierRoles = [
+          '836228186488176690',
           '809832298790518845',
           '757754722995273849',
           '757754794889707581',
@@ -80,6 +83,7 @@ module.exports = {
 
         let tierLevel =
           tierRoles.indexOf(selTier.id) > tierRoles.indexOf(memberTier.id);
+
         const embed = new EmbedBuilder()
           .setTitle(
             tierLevel
